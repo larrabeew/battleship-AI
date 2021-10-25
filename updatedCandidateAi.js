@@ -84,22 +84,20 @@ CandidateAI.prototype.initializeGame = function() {
 								}else{
 									potentialShipsLargerThan3[i][j] += 1;
 								}
-							}else if(shotsFiredGrid[i+1][j] >= 1  && shotsFiredGrid[i+1][j] <= 5){//detect if the current space has already hit ship
+							}else if(shotsFiredGrid[i+1][j] >= 1 && shotsFiredGrid[i+1][j] <= 5){//detect if the current space has already hit ship
 								if(carrierShip.hitsLeft + battleShipShip.hitsLeft + DestroyerShip.hitsLeft + SubShip.hitsLeft + PBShip.hitsLeft !=0){  //Sanity check to make sure there are hits left on any ship
 									if(i<8){
-										if(shotsFiredGrid[i+2][j] >= 1  && shotsFiredGrid[i+2][j] <= 5){  //If there is two or more hits in a row make sure those spots are selected next
+										if(shotsFiredGrid[i+2][j] == shotsFiredGrid[i+1][j]){  //If there is two or more hits in a row make sure those spots are selected next
 											potentialShipsLargerThan3[i][j] += 1000;
 										}else{
 											potentialShipsLargerThan3[i][j] += 500; //Every other spot is only slighlty less lightly to be a potiential target.
 										}
-									}else if(i>1){
-										if(shotsFiredGrid[i-1][j] >= 1  && shotsFiredGrid[i-1][j] <= 5){//Do the same thing in the other direction
+									}if(i>1){
+										if(shotsFiredGrid[i-1][j] == shotsFiredGrid[i+1][j]){//Do the same thing in the other direction
 											potentialShipsLargerThan3[i][j] += 1000;
 										}else{
-											potentialShipsLargerThan3[i][j] += 500;
+											potentialShipsLargerThan3[i][j] += 500;//If no spot has been hit around this spot make all spots the next possible target
 										}
-									}else{
-										potentialShipsLargerThan3[i][j] += 500;//If no spot has been hit around this spot make all spots the next possible target
 									}
 								}
 							}
@@ -114,22 +112,20 @@ CandidateAI.prototype.initializeGame = function() {
 								}else{
 									potentialShipsLargerThan3[i][j] += 1;
 								}
-							}else if(shotsFiredGrid[i-1][j] >= 1 shotsFiredGrid[i-1][j] <=5){//If the board shows a number that means a ship has been hit
+							}else if(shotsFiredGrid[i-1][j] >= 1 && shotsFiredGrid[i-1][j] <= 5){ //If the board shows a number that means a ship has been hit
 								if(carrierShip.hitsLeft + battleShipShip.hitsLeft + DestroyerShip.hitsLeft + SubShip.hitsLeft + PBShip.hitsLeft !=0){//Sanity check to make sure there are hits left on any ship
 									if(i>1){
-										if(shotsFiredGrid[i-2][j] >= 1 && shotsFiredGrid[i-2][j] <=5){//If there is two or more hits in a row make sure those spots are selected next
+										if(shotsFiredGrid[i-2][j] == shotsFiredGrid[i-1][j]){//If there is two or more hits in a row make sure those spots are selected next
 											potentialShipsLargerThan3[i][j] += 1000;
 										}else{
 											potentialShipsLargerThan3[i][j] += 500;//Every other spot is only slighlty less lightly to be a potiential target.
 										}
-									}else if(i<9){
-										if(shotsFiredGrid[i+1][j] >= 1 shotsFiredGrid[i+1][j] <= 5){//Do the same thing in the other direction
+									}if(i<9){
+										if(shotsFiredGrid[i+1][j] == shotsFiredGrid[i-1][j]){//Do the same thing in the other direction
 											potentialShipsLargerThan3[i][j] += 1000;
 										}else{
-											potentialShipsLargerThan3[i][j] += 500;
+											potentialShipsLargerThan3[i][j] += 500;//If no spot has been hit around this spot make all spots the next possible target
 										}
-									}else{
-										potentialShipsLargerThan3[i][j] += 500;//If no spot has been hit around this spot make all spots the next possible target
 									}
 								}
 							}
@@ -144,22 +140,20 @@ CandidateAI.prototype.initializeGame = function() {
 								}else{
 									potentialShipsLargerThan3[i][j] += 1;
 								}
-							}else if(shotsFiredGrid[i][j-1] >= 1  && shotsFiredGrid[i][j-1] <=5){//If the board shows a number that means a ship has been hit
+							}else if(shotsFiredGrid[i][j-1] >= 1 && shotsFiredGrid[i][j-1] <= 5){//If the board shows a number that means a ship has been hit
 								if(carrierShip.hitsLeft + battleShipShip.hitsLeft + DestroyerShip.hitsLeft + SubShip.hitsLeft + PBShip.hitsLeft !=0){//Sanity check to make sure there are hits left on any ship
 									if(j>1){
-										if(shotsFiredGrid[i][j-2] >= 1  && shotsFiredGrid[i][j-2] <=5){//If there is two or more hits in a row make sure those spots are selected next
+										if(shotsFiredGrid[i][j-2] == shotsFiredGrid[i][j-1]){//If there is two or more hits in a row make sure those spots are selected next
 											potentialShipsLargerThan3[i][j] += 1000;
 										}else{
 											potentialShipsLargerThan3[i][j] += 500;//Every other spot is only slighlty less lightly to be a potiential target.
 										}
-									}else if(j<9){
-										if(shotsFiredGrid[i][j+1] >= 1  && shotsFiredGrid[i][j+1] <=5){//Do the same thing in the other direction
+									}if(j<9){
+										if(shotsFiredGrid[i][j+1] == shotsFiredGrid[i][j-1]){//Do the same thing in the other direction
 											potentialShipsLargerThan3[i][j] += 1000;
 										}else{
-											potentialShipsLargerThan3[i][j] += 500;
+											potentialShipsLargerThan3[i][j] += 500;//If no spot has been hit around this spot make all spots the next possible target
 										}
-									}else{
-										potentialShipsLargerThan3[i][j] += 500;//If no spot has been hit around this spot make all spots the next possible target
 									}
 								}
 							}
@@ -174,22 +168,20 @@ CandidateAI.prototype.initializeGame = function() {
 								}else{
 									potentialShipsLargerThan3[i][j] += 1;
 								}
-							}else if(shotsFiredGrid[i][j+1] >= 1 && shotsFiredGrid[i][j+1] <=5){//If the board shows a number that means a ship has been hit
+							}else if(shotsFiredGrid[i][j+1] >= 1 && shotsFiredGrid[i][j+1] <= 5){//If the board shows a number that means a ship has been hit
 								if(carrierShip.hitsLeft + battleShipShip.hitsLeft + DestroyerShip.hitsLeft + SubShip.hitsLeft + PBShip.hitsLeft !=0){//Sanity check to make sure there are hits left on any ship
 									if(j<8){
-										if(shotsFiredGrid[i][j+2] >= 1 && shotsFiredGrid[i][j+2] <=5){//If there is two or more hits in a row make sure those spots are selected next
+										if(shotsFiredGrid[i][j+2] == shotsFiredGrid[i][j+1]){//If there is two or more hits in a row make sure those spots are selected next
 											potentialShipsLargerThan3[i][j] += 1000;
 										}else{
 											potentialShipsLargerThan3[i][j] += 500;//Every other spot is only slighlty less lightly to be a potiential target.
 										}
-									}else if(j>1){
-										if(shotsFiredGrid[i][j-1] >= 1 && shotsFiredGrid[i][j-1] <=5){//Do the same thing in the other direction
+									}if(j>1){
+										if(shotsFiredGrid[i][j-1] == shotsFiredGrid[i][j+1]){//Do the same thing in the other direction
 											potentialShipsLargerThan3[i][j] += 1000;
 										}else{
-											potentialShipsLargerThan3[i][j] += 500;
+											potentialShipsLargerThan3[i][j] += 500;//If no spot has been hit around this spot make all spots the next possible target
 										}
-									}else{
-										potentialShipsLargerThan3[i][j] += 500;//If no spot has been hit around this spot make all spots the next possible target
 									}
 								}
 							}
@@ -218,7 +210,7 @@ CandidateAI.prototype.initializeGame = function() {
 					if(potential == largestPotentialPoint.potential){
 						shotsFiredGrid[i][j] = "S";//Set all potiential areas to shoot equal to S
 					}else{
-						if(shotsFiredGrid[i][j] == "S" || shotsFiredGrid[i][j] == ""){//All other areas equal blank
+						if(shotsFiredGrid[i][j] == "S" || shotsFiredGrid[i][j] == ""){//All other S to blank
 								shotsFiredGrid[i][j] = "";
 						}
 					}
@@ -269,6 +261,16 @@ CandidateAI.prototype.startGame = function() {
 CandidateAI.prototype.shoot = function() {
     var coords = this.getNextCoord();
     var result = this.player.shoot(coords.x, coords.y);	
+	function removeSunkShip(shipID){//function to remove the ship that is been sunk from being considered from potential shots
+		for(var i=0;i<10;i++){//loop though the grid to change the value of the sunk ships
+				for(var j=0;j<10;j++){	
+					if(shotsFiredGrid[i][j] == shipID){
+						shotsFiredGrid[i][j] = "H";//set the value to H
+					}
+				}
+			}
+		return "";
+	}
 	if (result.ship != null){
 			//Keep track of hits to narrow down on where ship is.
 			var hitsLeft;
@@ -293,6 +295,9 @@ CandidateAI.prototype.shoot = function() {
 					PBShip.hitsLeft = hitsLeft;
 				}
 				shotsFiredGrid[coords.y][coords.x] = result.ship + 1;
+				if(hitsLeft == 0){//check if sunk and remove from consideration
+					removeSunkShip(result.ship + 1);
+				}
 		}
 		else{
 			shotsFiredGrid[coords.y][coords.x] = "M";
